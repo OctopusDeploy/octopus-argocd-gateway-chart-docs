@@ -41,6 +41,8 @@ The Octopus Argo CD Gateway Helm chart follows [Semantic Versioning](https://sem
 | gateway.argocd.insecure | bool | `false` | Skip server certificate and domain verification on the TLS connection to the Argo CD instance |
 | gateway.argocd.plaintext | bool | `false` | Disable TLS on the connection to the Argo CD instance |
 | gateway.argocd.serverGrpcUrl | string | `""` | The gRPC url (including the port) of the Argo CD instance to communicate with |
+| gateway.debug | bool | `false` | Enable debug logs |
+| gateway.octopus.plaintext | bool | `false` | Disables TLS on the connection to the Octopus Deploy server This should only be used if your Octopus Server is running without a certificate on its gRPC listener. |
 | gateway.octopus.serverGrpcUrl | string | `""` | The gRPC url (including the port) of the Octopus Deploy server to communicate with |
 | gateway.octopus.serverThumbprint | string | `""` | The thumbprint of the Octopus Deploy server the gateway is communicating with. This should only be used if you wish to pin the certificate. |
 | gateway.serviceAccount | object | `{"annotations":{},"automountServiceAccountToken":true,"create":true,"name":""}` | Values for configuring the service account used by the gateway pod |
