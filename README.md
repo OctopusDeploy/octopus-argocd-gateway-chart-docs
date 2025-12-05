@@ -10,10 +10,6 @@ The Octopus Argo CD Gateway Helm chart follows [Semantic Versioning](https://sem
 - *minor* - New non-breaking features. New features or improvements to the Octopus Argo CD Gateway application or helm chart itself.
 - *patch* - Minor non-breaking bug fixes or changes that do not introduce new features.
 
-### Latest Versions
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square)
-![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
-
 ----------------------------------------------
 
 ## Values
@@ -40,11 +36,14 @@ The Octopus Argo CD Gateway Helm chart follows [Semantic Versioning](https://sem
 | gateway.argocd.authenticationToken | string | `""` | The bearer token used to authenticate with the Argo CD instance |
 | gateway.argocd.insecure | bool | `false` | Skip server certificate and domain verification on the TLS connection to the Argo CD instance |
 | gateway.argocd.plaintext | bool | `false` | Disable TLS on the connection to the Argo CD instance |
+| gateway.argocd.serverCertificate | string | `""` | The base64-encoded public key of the self-signed x509 certificate or root CA certificate used by the target Argo CD Server. Must be in the PEM format. |
 | gateway.argocd.serverGrpcUrl | string | `""` | The gRPC url (including the port) of the Argo CD instance to communicate with |
 | gateway.debug | bool | `false` | Enable debug logs |
 | gateway.octopus.plaintext | bool | `false` | Disables TLS on the connection to the Octopus Deploy server This should only be used if your Octopus Server is running without a certificate on its gRPC listener. |
+| gateway.octopus.serverCertificate | string | `""` | The base64-encoded public key of the self-signed x509 certificate or root CA certificate used by the target Octopus Server. Must be in the PEM format. |
 | gateway.octopus.serverGrpcUrl | string | `""` | The gRPC url (including the port) of the Octopus Deploy server to communicate with |
 | gateway.octopus.serverThumbprint | string | `""` | The thumbprint of the Octopus Deploy server the gateway is communicating with. This should only be used if you wish to pin the certificate. |
+| gateway.serverCertificateSecretName | string | `""` | The name of a secret containing one or more base64-encoded public keys of x509 certificates used by Octopus and Argo CD that the Gateway should trust. The secret must be in the same namespace as the Gateway and all certificates must be in the PEM format. |
 | gateway.serviceAccount | object | `{"annotations":{},"automountServiceAccountToken":true,"create":true,"name":""}` | Values for configuring the service account used by the gateway pod |
 | gateway.serviceAccount.annotations | object | `{}` | Additional annotations for the service account |
 | gateway.serviceAccount.automountServiceAccountToken | bool | `true` | Controls if the service account token should be automatically mounted into the gateway pod |
@@ -71,6 +70,7 @@ The Octopus Argo CD Gateway Helm chart follows [Semantic Versioning](https://sem
 | registration.octopus.name | string | `""` | Name of the gateway |
 | registration.octopus.serverAccessToken | string | `""` | The access token to authenticate to Octopus Deploy to register with |
 | registration.octopus.serverApiUrl | string | `""` | The API URL of Octopus Deploy for registration e.g. https://my-instance.octopus.app |
+| registration.octopus.serverCertificate | string | `""` | The base64-encoded public key of the self-signed x509 certificate or root CA certificate used by the Octopus Server for its HTTP API. Must be in the PEM format. |
 | registration.octopus.spaceId | string | `""` | The space id that the gateway is registering with |
 | registration.register | bool | `true` | Automatically register the gateway with the Octopus Deploy server, if set to false the gateway will not register itself |
 | registration.serviceAccount | object | `{"annotations":{},"automountServiceAccountToken":true,"create":true,"name":""}` | Values for configuring the service account used by the registration pod |
