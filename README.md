@@ -1,6 +1,6 @@
 ## Octopus Argo CD Gateway
 
-The helm chart is hosted on [Docker Hub](https://hub.docker.com/r/octopusdeploy/octopus-argocd-gateway), where you can pull it using Helm.
+The helm chart is hosted on [Docker Hub](https://hub.docker.com/r/octopusdeploy/octopus-argocd-gateway-chart), where you can pull it using Helm.
 
 ## Versions
 
