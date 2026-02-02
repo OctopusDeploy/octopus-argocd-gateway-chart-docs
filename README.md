@@ -34,6 +34,8 @@ The Octopus Argo CD Gateway Helm chart follows [Semantic Versioning](https://sem
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | gateway.argocd.authenticationToken | string | `""` | The bearer token used to authenticate with the Argo CD instance |
+| gateway.argocd.authenticationTokenSecretKey | string | `"ARGOCD_AUTH_TOKEN"` | The key in the existing secret that contains the server access token. Only used when gateway.argocd.authenticationTokenSecretName is set. Defaults to ARGOCD_AUTH_TOKEN. |
+| gateway.argocd.authenticationTokenSecretName | string | `""` | Name of an existing secret that contains and Argo CD authentication token |
 | gateway.argocd.insecure | bool | `false` | Skip server certificate and domain verification on the TLS connection to the Argo CD instance |
 | gateway.argocd.plaintext | bool | `false` | Disable TLS on the connection to the Argo CD instance |
 | gateway.argocd.serverCertificate | string | `""` | The base64-encoded public key of the self-signed x509 certificate or root CA certificate used by the target Argo CD Server. Must be in the PEM format. |
