@@ -34,16 +34,21 @@ The Octopus Argo CD Gateway Helm chart follows [Semantic Versioning](https://sem
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | gateway.argocd.authenticationToken | string | `""` | The bearer token used to authenticate with the Argo CD instance |
+| gateway.argocd.authenticationTokenSecretKey | string | `"ARGOCD_AUTH_TOKEN"` | The key in the existing secret that contains the server access token. Only used when gateway.argocd.authenticationTokenSecretName is set. Defaults to ARGOCD_AUTH_TOKEN. |
+| gateway.argocd.authenticationTokenSecretName | string | `""` | Name of an existing secret that contains and Argo CD authentication token |
+| gateway.argocd.grpcWeb | bool | `false` | Use the gRPC-Web protocol to connect to the Argo CD instance. Useful when the Argo CD API is behind a proxy that does not support HTTP/2. |
+| gateway.argocd.grpcWebRootPath | string | `""` | Enables gRPC-Web and sets a root path prefix that the Argo CD API is served under (e.g. /argocd). Takes precedence over grpcWeb if both are set. |
 | gateway.argocd.insecure | bool | `false` | Skip server certificate and domain verification on the TLS connection to the Argo CD instance |
 | gateway.argocd.plaintext | bool | `false` | Disable TLS on the connection to the Argo CD instance |
-| gateway.argocd.serverCertificate | string | `""` | The base64-encoded public key of the self-signed x509 certificate or root CA certificate used by the target Argo CD Server. Must be in the PEM format. |
+| gateway.argocd.serverCertificate | string | `""` | DEPRECATED: use gateway.serverCertificates instead - The base64-encoded public key of the self-signed x509 certificate or root CA certificate used by the target Argo CD Server. Must be in the PEM format. |
 | gateway.argocd.serverGrpcUrl | string | `""` | The gRPC url (including the port) of the Argo CD instance to communicate with |
 | gateway.debug | bool | `false` | Enable debug logs |
 | gateway.octopus.plaintext | bool | `false` | Disables TLS on the connection to the Octopus Deploy server This should only be used if your Octopus Server is running without a certificate on its gRPC listener. |
-| gateway.octopus.serverCertificate | string | `""` | The base64-encoded public key of the self-signed x509 certificate or root CA certificate used by the target Octopus Server. Must be in the PEM format. |
+| gateway.octopus.serverCertificate | string | `""` | DEPRECATED: use gateway.serverCertificates instead - The base64-encoded public key of the self-signed x509 certificate or root CA certificate used by the target Octopus Server. Must be in the PEM format. |
 | gateway.octopus.serverGrpcUrl | string | `""` | The gRPC url (including the port) of the Octopus Deploy server to communicate with |
 | gateway.octopus.serverThumbprint | string | `""` | The thumbprint of the Octopus Deploy server the gateway is communicating with. This should only be used if you wish to pin the certificate. |
 | gateway.serverCertificateSecretName | string | `""` | The name of a secret containing one or more base64-encoded public keys of x509 certificates used by Octopus and Argo CD that the Gateway should trust. The secret must be in the same namespace as the Gateway and all certificates must be in the PEM format. |
+| gateway.serverCertificates | list | `[]` | A list of base64-encoded public key of the self-signed x509 certificates or root CA certificates used by the target Octopus and/or Argo CD Server. Must be in the PEM format. |
 | gateway.serviceAccount | object | `{"annotations":{},"automountServiceAccountToken":true,"create":true,"name":""}` | Values for configuring the service account used by the gateway pod |
 | gateway.serviceAccount.annotations | object | `{}` | Additional annotations for the service account |
 | gateway.serviceAccount.automountServiceAccountToken | bool | `true` | Controls if the service account token should be automatically mounted into the gateway pod |
@@ -69,8 +74,10 @@ The Octopus Argo CD Gateway Helm chart follows [Semantic Versioning](https://sem
 | registration.octopus.environments | list | `[]` | Environment slugs or ids that the gateway should be associated with |
 | registration.octopus.name | string | `""` | Name of the gateway |
 | registration.octopus.serverAccessToken | string | `""` | The access token to authenticate to Octopus Deploy to register with |
+| registration.octopus.serverAccessTokenSecretKey | string | `"OCTOPUS_SERVER_ACCESS_TOKEN"` | The key in the existing secret that contains the server access token. Only used when registration.octopus.serverAccessTokenSecretName is set. Defaults to OCTOPUS_SERVER_ACCESS_TOKEN. |
+| registration.octopus.serverAccessTokenSecretName | string | `""` | Name of an existing secret that contains an Octopus Server access token |
 | registration.octopus.serverApiUrl | string | `""` | The API URL of Octopus Deploy for registration e.g. https://my-instance.octopus.app |
-| registration.octopus.serverCertificate | string | `""` | The base64-encoded public key of the self-signed x509 certificate or root CA certificate used by the Octopus Server for its HTTP API. Must be in the PEM format. |
+| registration.octopus.serverCertificate | string | `""` | DEPRECATED: use gateway.serverCertificates instead - The base64-encoded public key of the self-signed x509 certificate or root CA certificate used by the Octopus Server for its HTTP API. Must be in the PEM format. |
 | registration.octopus.spaceId | string | `""` | The space id that the gateway is registering with |
 | registration.register | bool | `true` | Automatically register the gateway with the Octopus Deploy server, if set to false the gateway will not register itself |
 | registration.serviceAccount | object | `{"annotations":{},"automountServiceAccountToken":true,"create":true,"name":""}` | Values for configuring the service account used by the registration pod |
