@@ -1,5 +1,9 @@
 ## Octopus Argo CD Gateway
 
+> [!IMPORTANT]
+> This repository is archived and will not be updated. All Gateway helm chart documentation can be found on [Octopus Deploy Docs](https://octopus.com/docs/argo-cd/instances/helm-chart-values)
+
+
 The helm chart is hosted on [Docker Hub](https://hub.docker.com/r/octopusdeploy/octopus-argocd-gateway-chart), where you can pull it using Helm.
 
 ## Versions
